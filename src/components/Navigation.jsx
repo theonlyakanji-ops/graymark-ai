@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { FileText, Target, MessageSquare, Key, Sun, Moon } from 'lucide-react';
+import { FileText, Target, MessageSquare, Sun, Moon } from 'lucide-react';
 import Logo from './Logo';
-import { hasApiKey } from '../services/aiEngine';
 
-export default function Navigation({ activeTab, setActiveTab, onOpenApiKeyModal }) {
+export default function Navigation({ activeTab, setActiveTab }) {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('graymark_theme') || 'light';
   });
-
-  const isLive = hasApiKey();
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -31,7 +28,7 @@ export default function Navigation({ activeTab, setActiveTab, onOpenApiKeyModal 
         {/* Brand Custom Logo */}
         <Logo size={36} />
 
-        {/* Minimalist Tab Controls */}
+        {/* Navigation Tabs */}
         <nav className="nav-tabs">
           {tabs.map((tab) => {
             const Icon = tab.icon;
@@ -41,6 +38,7 @@ export default function Navigation({ activeTab, setActiveTab, onOpenApiKeyModal 
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`tab-button ${isActive ? 'active' : ''}`}
+                aria-label={`Switch to ${tab.label}`}
               >
                 <Icon size={16} />
                 <span>{tab.label}</span>
@@ -49,30 +47,16 @@ export default function Navigation({ activeTab, setActiveTab, onOpenApiKeyModal 
           })}
         </nav>
 
-        {/* Engine Status & Theme Toggle Settings */}
+        {/* Theme Switcher Toggle */}
         <div className="nav-actions">
-          {/* Theme Switcher */}
           <button
             onClick={toggleTheme}
             className="btn btn-secondary btn-sm"
-            style={{ padding: '0.35rem 0.5rem' }}
+            style={{ padding: '0.35rem 0.6rem' }}
             title={`Switch to ${theme === 'light' ? 'Espresso Dark' : 'Cream Light'} Mode`}
+            aria-label={`Switch to ${theme === 'light' ? 'Espresso Dark' : 'Cream Light'} Mode`}
           >
-            {theme === 'light' ? <Moon size={14} /> : <Sun size={14} />}
-          </button>
-
-          <div className={`engine-badge ${isLive ? 'live' : 'demo'}`}>
-            <span className="dot"></span>
-            <span>{isLive ? 'Gemini Live API' : 'Demo Engine Active'}</span>
-          </div>
-
-          <button
-            onClick={onOpenApiKeyModal}
-            className="btn btn-secondary btn-sm"
-            title="Configure Gemini API Key"
-          >
-            <Key size={14} />
-            <span>API Key</span>
+            {theme === 'light' ? <Moon size={15} /> : <Sun size={15} />}
           </button>
         </div>
       </div>
@@ -135,35 +119,6 @@ export default function Navigation({ activeTab, setActiveTab, onOpenApiKeyModal 
           display: flex;
           align-items: center;
           gap: 0.625rem;
-        }
-
-        .engine-badge {
-          display: flex;
-          align-items: center;
-          gap: 0.375rem;
-          font-size: 0.75rem;
-          font-weight: 600;
-          padding: 0.25rem 0.625rem;
-          border-radius: 9999px;
-        }
-
-        .engine-badge.demo {
-          background: var(--bg-subtle);
-          color: var(--text-secondary);
-          border: 1px solid var(--border-color);
-        }
-
-        .engine-badge.live {
-          background: var(--bg-success);
-          color: var(--color-success);
-          border: 1px solid var(--border-success);
-        }
-
-        .dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: currentColor;
         }
 
         @media (max-width: 900px) {
