@@ -85,7 +85,7 @@ We are a fast-growing AI-powered SaaS startup building next-generation productiv
 
 Key Responsibilities:
 - Design, build, and maintain scalable web applications using React, TypeScript, and Node.js.
-- Partner with product managers and AI researchers to integrate Gemini API endpoints and real-time streaming interfaces.
+- Partner with product managers and AI researchers to integrate REST API endpoints and real-time streaming interfaces.
 - Drive architecture decisions for high-availability cloud microservices on AWS/GCP.
 - Optimize web application performance, bundle size, and responsiveness across web and mobile.
 
