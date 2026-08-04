@@ -1,18 +1,14 @@
 /**
  * AI Engine Service Layer for GRAYMARK AI
- * Supports Live Gemini API Mode & Smart Fallback Engine
- * Enforces 5-Part Structured AI Responses:
- * 1. Executive Reframe / Core Takeaway
- * 2. What You Did Well
- * 3. What is Not Working
- * 4. How to Fix It (Concrete Copyable Rewrites)
- * 5. External Learning Resources
+ * Uses Environment Variable (VITE_GEMINI_API_KEY) / Live API automatically
+ * with Smart Client-Side Engine Fallback
  */
 
 const STORAGE_KEY = 'ai_career_coach_gemini_key';
 
 export const getApiKey = () => {
-  return localStorage.getItem(STORAGE_KEY) || '';
+  // Check Vite Environment Variable first, then localStorage
+  return import.meta.env.VITE_GEMINI_API_KEY || localStorage.getItem(STORAGE_KEY) || '';
 };
 
 export const setApiKey = (key) => {
@@ -59,7 +55,7 @@ async function callGeminiAPI(prompt, apiKey) {
     
     return JSON.parse(rawText);
   } catch (error) {
-    console.warn('Gemini API call failed, switching to Smart Demo Engine:', error.message);
+    console.warn('Gemini API call failed, switching to Smart Engine:', error.message);
     throw error;
   }
 }
@@ -121,7 +117,7 @@ ${resumeText}`;
     }
   }
 
-  // --- SMART DEMO ENGINE ---
+  // --- SMART ENGINE ---
   await delay(1100);
 
   const wordCount = resumeText.trim().split(/\s+/).length;
@@ -237,7 +233,7 @@ ${jobDescription}`;
     }
   }
 
-  // --- DEMO ENGINE ---
+  // --- SMART ENGINE ---
   await delay(1000);
 
   const resLower = resumeText.toLowerCase();
@@ -367,7 +363,7 @@ Return JSON:
     }
   }
 
-  // --- DEMO ENGINE ---
+  // --- SMART ENGINE ---
   await delay(1100);
 
   const wordCount = userAnswer.trim().split(/\s+/).length;
