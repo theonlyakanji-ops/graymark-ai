@@ -4,13 +4,11 @@ import CareerMemoryBanner from './components/CareerMemoryBanner';
 import ResumeAnalyzer from './components/ResumeAnalyzer';
 import JobMatcher from './components/JobMatcher';
 import MockInterview from './components/MockInterview';
-import ApiKeyModal from './components/ApiKeyModal';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('resume-analyzer');
   const [resumeText, setResumeText] = useState('');
   const [analysisResult, setAnalysisResult] = useState(null);
-  const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
 
   return (
     <div className="app-layout">
@@ -18,7 +16,6 @@ export default function App() {
       <Navigation
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        onOpenApiKeyModal={() => setIsApiKeyModalOpen(true)}
       />
 
       {/* Main View Area */}
@@ -44,23 +41,15 @@ export default function App() {
         )}
       </main>
 
-      {/* Minimalist Footer */}
+      {/* Production Footer */}
       <footer className="footer">
         <div className="container footer-content">
-          <p>© 2026 GRAYMARK AI — Full-Stack AI Portfolio Showcase</p>
+          <p>© 2026 GRAYMARK AI — Career & Resume Intelligence</p>
           <div className="footer-links">
-            <button onClick={() => setIsApiKeyModalOpen(true)} className="footer-link">
-              Configure Gemini API Key
-            </button>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Powered by Google Gemini</span>
           </div>
         </div>
       </footer>
-
-      {/* API Key Modal */}
-      <ApiKeyModal
-        isOpen={isApiKeyModalOpen}
-        onClose={() => setIsApiKeyModalOpen(false)}
-      />
 
       <style>{`
         .app-layout {
@@ -74,6 +63,7 @@ export default function App() {
           border-top: 1px solid var(--border-color);
           padding: 1.25rem 0;
           margin-top: auto;
+          transition: background-color var(--transition-normal), border-color var(--transition-normal);
         }
 
         .footer-content {
@@ -88,20 +78,6 @@ export default function App() {
           display: flex;
           align-items: center;
           gap: 1rem;
-        }
-
-        .footer-link {
-          background: none;
-          border: none;
-          color: var(--text-secondary);
-          font-size: 0.8125rem;
-          cursor: pointer;
-          font-family: inherit;
-        }
-
-        .footer-link:hover {
-          color: var(--text-primary);
-          text-decoration: underline;
         }
 
         @media (max-width: 640px) {
