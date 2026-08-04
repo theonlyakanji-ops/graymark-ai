@@ -41,12 +41,12 @@ export default function App() {
         )}
       </main>
 
-      {/* Production Footer */}
+      {/* Proprietary Production Footer */}
       <footer className="footer">
         <div className="container footer-content">
-          <p>© 2026 GRAYMARK AI — Career & Resume Intelligence</p>
+          <p>© 2026 GRAYMARK AI — All Rights Reserved</p>
           <div className="footer-links">
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Powered by Google Gemini</span>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Career & Resume Intelligence Platform</span>
           </div>
         </div>
       </footer>
